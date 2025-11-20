@@ -10,8 +10,9 @@ import Home from "./pages/Home/Home";
 import HomeDashboard from "./pages/Dashboard/HomeDashboard";
 import NotFoundLandingPage from "./pages/NotFoundLandingPage";
 import VentanillaVirtual from "./pages/VentanillaVirtual/VentanillaVirtual";
-import Trabajos from "./pages/Dashboard/Trabajos";
+import Trabajos from "./pages/Trabajos/Trabajos";
 import Empleados from "./pages/Dashboard/Empleados";
+import Clientes from "./pages/Dashboard/Clientes";
 
 function Logout() {
   localStorage.clear();
@@ -47,6 +48,7 @@ function App() {
           <Route path="/dashboard" element={<HomeDashboard />} />
           <Route path="/trabajos" element={<Trabajos />} />
           <Route path="/empleados" element={<Empleados />} />
+          <Route path="/clientes" element={<Clientes />} />
         </Route>
         {/* 🚫 404 */}
         <Route element={<RootLayout />}>

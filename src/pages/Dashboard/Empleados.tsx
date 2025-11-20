@@ -82,7 +82,7 @@ const Empleados = () => {
   // Campos del formulario
   const formFields: FormField[] = [
     { name: "nombre", label: "Nombre", type: "text", required: true },
-    { name: "cedula_ruc", label: "Cédula/RUC", type: "text", required: true },
+    { name: "cedula_ruc", label: "Cédula/RUC", type: "text" },
     { name: "telefono", label: "Teléfono", type: "text" },
     { name: "banco", label: "Banco", type: "text" },
     { name: "cuenta_bancaria", label: "Cuenta Bancaria", type: "text" },
@@ -95,7 +95,6 @@ const Empleados = () => {
     { key: "cuenta_bancaria", label: "Cuenta Bancaria" },
     
   ];
-
   const tableActions: TableAction<Empleado>[] = [
     {
       label: "Eliminar",

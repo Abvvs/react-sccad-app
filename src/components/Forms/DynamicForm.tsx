@@ -60,7 +60,7 @@ const DynamicForm: React.FC<DynamicFormProps> = ({
       case "select":
         return (
           <select
-            name={field.name}
+            name={field.name }
             value={formData[field.name] || ""}
             onChange={(e) => onChange(field.name, e.target.value)}
             required={field.required}

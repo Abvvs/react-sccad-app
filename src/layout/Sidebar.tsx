@@ -9,6 +9,7 @@ const menuItems = [
   { label: "Inicio", path: "/dashboard" },
   { label: "Trabajos", path: "/trabajos" },
   { label: "Empleados", path: "/empleados" },
+  { label: "Clientes", path: "/clientes" },
 ];
 function getUserName() {
   const token = localStorage.getItem(ACCESS_TOKEN);
@@ -16,7 +17,6 @@ function getUserName() {
 
   try {
     const decoded: any = jwtDecode(token);
-    console.log("TOKEN DECODED:", decoded);
     return decoded.username;
   } catch {
     return "Usuario";
