@@ -1,20 +1,19 @@
 import React from 'react'
 import SimpleCard from '../../components/Cards/SimpleCard';
-
-import topografiaImage from "../../assets/mapa-topografia.jpeg";
-import viasImage from "../../assets/topografia_vias.jpg";
-import arquitecturaImage from "../../assets/arquitectura.jpeg";
-import legalizacionImage from "../../assets/node_topografia_anivellament_3.jpg";
+import topografiaImage from "/mapa-topografia.webp";
+import viasImage from "../../assets/topografia_vias.webp";
+import arquitecturaImage from "../../assets/arquitectura.webp";
+import legalizacionImage from "../../assets/node_topografia_anivellament_3.webp";
 
 const services = [
   {
-    title: "Topografía y Medición",
+    title: "Topografía y Medición de Terrenos",
     description:
       "Levantamientos precisos para proyectos de construcción, desarrollo urbano y rural.",
     imageUrl: topografiaImage,
   },
   {
-    title: "Diseño de Vías",
+    title: "Diseño de Vías y Caminos",
     description:
       "Diseño de carreteras, caminos y vías urbanas con enfoque en seguridad y eficiencia.",
     imageUrl: viasImage,
@@ -26,7 +25,7 @@ const services = [
     imageUrl: arquitecturaImage,
   },
   {
-    title: "Legalización de Terrenos",
+    title: "Legalización de Terrenos y Propiedades",
     description:
       "Asesoría y gestión de trámites para la legalización de terrenos y propiedades.",
     imageUrl: legalizacionImage,
@@ -35,7 +34,7 @@ const services = [
 
 const ServiceSection: React.FC = () => {
   return (
-    <section className="py-16 sm:py-24">
+    <section className="py-16 sm:py-24" id="services">
       <div className="container mx-auto px-6">
         <div className="text-center mb-12">
           <h2 className="text-3xl md:text-4xl font-bold text-[#d45500]">
@@ -46,7 +45,7 @@ const ServiceSection: React.FC = () => {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+        <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
           {services.map((service) => (
             <SimpleCard
               key={service.title}
@@ -55,7 +54,7 @@ const ServiceSection: React.FC = () => {
               imageUrl={service.imageUrl}
             />
           ))}
-        </div>
+        </ul>
       </div>
     </section>
   );

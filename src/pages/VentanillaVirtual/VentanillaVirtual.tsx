@@ -1,4 +1,3 @@
-import React from "react";
 import VentanillaHeader from "./VentanillaHeader";
 import SearchForm from "./SearchForm";
 const VentanillaVirtual = () => {

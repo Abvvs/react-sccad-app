@@ -1,5 +1,5 @@
-import { useState, useEffect } from 'react'
-import { MessageCircle } from 'lucide-react';
+import { useState, useEffect } from "react";
+import { MessageCircle } from "lucide-react";
 
 interface Slide {
   title: string;
@@ -17,16 +17,16 @@ interface HeroProps {
 
 const HeroCarousel = ({
   slides,
-  whatsappNumber= '593980120958',
-  whatsappMessage = '¡Hola! Me gustaria obtener más información.',
+  whatsappNumber = "593980120958",
+  whatsappMessage = "¡Hola! Me gustaria obtener más información.",
   autoPlay = true,
   autoPlayInterval = 5000,
 }: HeroProps) => {
   const [current, setCurrent] = useState(0);
-
+  const currentSlide = slides[current];
   // Cambio automático de slides
   useEffect(() => {
-    if (!autoPlay) return;
+    if (!autoPlay || slides.length <= 1) return;
 
     const interval = setInterval(() => {
       setCurrent((prev) => (prev + 1) % slides.length);
@@ -36,10 +36,10 @@ const HeroCarousel = ({
   }, [slides.length, autoPlay, autoPlayInterval]);
   // Función para abrir WhatsApp
   const handleWhatsAppClick = () => {
-    const cleanPhone = whatsappNumber.replace(/\D/g, '');
+    const cleanPhone = whatsappNumber.replace(/\D/g, "");
     const encodedMessage = encodeURIComponent(whatsappMessage);
     const whatsappUrl = `https://wa.me/${cleanPhone}?text=${encodedMessage}`;
-    window.open(whatsappUrl, '_blank', 'noopener,noreferrer');
+    window.open(whatsappUrl, "_blank", "noopener,noreferrer");
   };
 
   return (
@@ -47,24 +47,24 @@ const HeroCarousel = ({
       className="relative w-full h-[80vh] flex items-center justify-center overflow-hidden text-white"
       id="hero"
     >
-      {slides.map((slide, index) => (
-        <div
-          key={index}
-          className={`absolute inset-0 bg-cover bg-center transition-all duration-1000 ease-in-out ${
-            index === current ? "opacity-100 z-10" : "opacity-0 z-0"
-          }`}
-          style={{
-            backgroundImage: `linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('${slide.imageUrl}')`,
-          }}
-        />
-      ))}
+      <img
+        src={currentSlide.imageUrl}
+        alt={`Topografía y arquitectura en Lago Agrio - ${currentSlide.title}`}
+        className="absolute inset-0 h-full w-full object-cover"
+        fetchPriority="high"
+        loading="eager"
+        width={1920}
+        height={1080}
+      />
+      {/* Overlay oscuro */}
+      <div className="absolute inset-0 bg-black/50" />
 
       <div className="relative z-20 text-center px-6">
-        <h1 className="text-4xl md:text-6xl font-black tracking-tight leading-tight mb-4">
-          {slides[current].title}
-        </h1>
+        <h2 className="text-4xl md:text-6xl font-black tracking-tight leading-tight mb-4">
+          {currentSlide.title}
+        </h2>
         <p className="text-lg md:text-xl max-w-3xl mx-auto mb-8 font-light">
-          {slides[current].description}
+          {currentSlide.description}
         </p>
         <button
           onClick={handleWhatsAppClick}

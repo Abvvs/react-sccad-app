@@ -1,4 +1,3 @@
-import React from "react";
 import {
   Satellite,
   Radio,
@@ -27,9 +26,12 @@ const AnimateBanner = () => {
   const duplicatedTechs = [...technologies, ...technologies, ...technologies];
   return (
     <section className="w-full bg-[#d45500] py-6 overflow-hidden relative">
-        <div className="absolute left-0 top-0 bottom-0 w-20 bg-linear-to-r from-[#d45500] to-transparent z-10 pointer-events-none" />
-        <div className="absolute right-0 top-0 bottom-0 w-20 bg-linear-to-l from-[#d45500] to-transparent z-10 pointer-events-none" />
-      <div className="flex animate-scroll-continuous">
+      <h2 id="tech-banner-title" className="sr-only">
+        Tecnología y experiencia en topografía y arquitectura
+      </h2>
+      <div className="absolute left-0 top-0 bottom-0 w-20 bg-linear-to-r from-[#d45500] to-transparent z-10 pointer-events-none" />
+      <div className="absolute right-0 top-0 bottom-0 w-20 bg-linear-to-l from-[#d45500] to-transparent z-10 pointer-events-none" />
+      <ul className="flex animate-scroll-continuous">
         {duplicatedTechs.map((tech, index) => (
           <BannerItem
             key={index}
@@ -38,7 +40,7 @@ const AnimateBanner = () => {
             subtitle={tech.subtitle}
           />
         ))}
-      </div>
+      </ul>
       <style>{`
         @keyframes scroll-continuous {
           0% {
