@@ -4,6 +4,7 @@ export const getTrabajos = () => api.get("/trabajos/");
 export const getTiposTrabajo = () => api.get("/trabajos/catalogos/tipo-trabajo/");
 export const getChoices = () => api.get("/trabajos/choices/");
 export const getClientes = () => api.get("/clientes/");
+export const getFormaPago = () => api.get("/trabajos/forma_pago/");
 
 // CRUD Trabajo
 export const crearTrabajo = (data: any) => api.post("/trabajos/", data);
@@ -23,3 +24,9 @@ export const agregarCliente = (id: number, data: any) =>
   api.post(`/trabajos/${id}/clientes/agregar/`, data);
 export const eliminarCliente = (id: number, clienteId: number) =>
   api.delete(`/trabajos/${id}/clientes/${clienteId}/eliminar/`);
+
+//CRUD PAGOS TRABAJO EN EL MODAL DE INFO
+export const crearPago = (data: any) =>
+  api.post("/pago/", data);
+export const eliminarPago = (id: number) =>
+  api.delete(`/pago/${id}/`);

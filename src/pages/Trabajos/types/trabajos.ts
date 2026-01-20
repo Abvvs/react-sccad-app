@@ -1,14 +1,13 @@
 export interface Trabajo {
   id: number;
   numero_trabajo: string;
-  descripcion: string;
   tipo_trabajo: { id: number; nombre: string };
-  activo: boolean;
+  descripcion: string;
   direccion_campo?: string;
   monto_total?: number;
-  saldo_pendiente?: number;
+  estado: boolean;
+  saldo_pendiente?: string; 
   estado_pago?: string;
-  estado_pago_display?: string;
   estado_actual?: {
     id: number;
     nombre: string;
@@ -17,6 +16,13 @@ export interface Trabajo {
   observaciones?: string;
   created_at?: string;
   clientes_relacionados?: TrabajoCliente[];
+  cuenta?: {
+    id: number;
+    monto_total: string;
+    saldo_pendiente: string;
+    estado_pago: string;
+    pagos: Pago[];
+  }
 }
 export interface TipoTrabajo {
   id: number;
@@ -50,4 +56,20 @@ export interface HistorialItem {
 }
 export interface Choices {
   estados_trabajo: Array<[string, string]>;
+}
+export interface FormaPago{
+  id: number;
+  nombre: string;
+  es_efectivo: boolean;
+}
+export interface Pago {
+  id: number;
+  cuenta_cobrar: number;
+  fecha_pago: string;
+  forma_pago: string;
+  forma_pago_nombre: string;
+  monto: string;
+  metodo_pago: string;
+  referencia?: string;
+  observaciones?: string;
 }

@@ -10,6 +10,7 @@ const menuItems = [
   { label: "Trabajos", path: "/trabajos" },
   { label: "Empleados", path: "/empleados" },
   { label: "Clientes", path: "/clientes" },
+  { label: "Caja", path: "/movimiento_caja" },
 ];
 function getUserName() {
   const token = localStorage.getItem(ACCESS_TOKEN);

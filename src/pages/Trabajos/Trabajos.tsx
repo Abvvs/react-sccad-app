@@ -12,12 +12,14 @@ import { useCatalogos } from "./hooks/useCatalogos";
 import { useTrabajos } from "./hooks/useTrabajos";
 import { useHistorial } from "./hooks/useHistorial";
 import { useClientesTrabajo } from "./hooks/useClientesTrabajo";
+import { usePagos } from "./hooks/usePagos";
 import { Trash2, Pencil, History, Info } from "lucide-react";
 import TrabajoFormModal from "./components/TrabajoFormModal";
 import ViewInfoTrabajoModal from "./components/ViewInfoTrabajoModal";
 import ViewHistorialTrabajoModal from "./components/ViewHistorialTrabajoModal";
 import CreateHistorialFormModal from "./components/CreateHistorialFormModal";
 import AddClienteTrabajoFormModal from "./components/AddClienteTrabajoFormModal";
+import AddPagoTrabajoFormModal from "./components/AddPagoTrabajoFormModal";
 
 const INITIAL_FORM_DATA = {
   descripcion: "",
@@ -37,12 +39,19 @@ const INITIAL_CLIENTE_FORM = {
   tipo_etiqueta: "PRINCIPAL",
   observaciones: "",
 };
+const INITIAL_PAGO_FORM = {
+  forma_pago: "",
+  fecha_pago: "",
+  monto: "",
+  observaciones: "",
+};
 
 const Trabajos = () => {
   const {
     tiposTrabajo,
     estadosTrabajo,
     clientesDisponibles,
+    formaPago,
     loadAllCatalogos,
   } = useCatalogos();
   const {
@@ -55,6 +64,7 @@ const Trabajos = () => {
   } = useTrabajos();
   const { historial, loadHistorial, createHistorialItem, setHistorial } = useHistorial();
   const { addCliente, removeCliente } = useClientesTrabajo();
+  const { addPago, removePago} = usePagos();
   const [showModal, setShowModal] = useState(false);
   const [showHistorialModal, setShowHistorialModal] = useState(false);
   const [showInfoModal, setShowInfoModal] = useState(false);
@@ -66,6 +76,7 @@ const Trabajos = () => {
     null
   );
   const [showAgregarClienteModal, setShowAgregarClienteModal] = useState(false);
+  const [showAgregarPagoModal, setShowAgregarPagoModal] = useState(false);
   const [formData, setFormData] =
     useState<Record<string, any>>(INITIAL_FORM_DATA);
   const [historialFormData, setHistorialFormData] = useState<
@@ -73,6 +84,8 @@ const Trabajos = () => {
   >(INITIAL_HISTORIAL_FORM);
   const [clienteFormData, setClienteFormData] =
     useState<Record<string, any>>(INITIAL_CLIENTE_FORM);
+  const [pagoFormData, setPagoFormData] =
+    useState<Record<string, any>>(INITIAL_PAGO_FORM);
   useEffect(() => {
     loadTrabajos();
     loadAllCatalogos();
@@ -81,7 +94,7 @@ const Trabajos = () => {
   const deleteTrabajos = (trabajo: Trabajo) => {
     if (!confirm("¿Seguro que quieres eliminar este trabajo?")) return;
 
-    toggleTrabajoActivo(trabajo.id, !trabajo.activo);
+    toggleTrabajoActivo(trabajo.id, !trabajo.estado);
   };
   const createHistorial = async () => {
   if (!selectedTrabajoId) return;
@@ -102,36 +115,71 @@ const Trabajos = () => {
   }
 };
   const agregarClienteTrabajo = async () => {
-  if (!selectedTrabajoId || !clienteFormData.cliente) return;
+    if (!selectedTrabajoId || !clienteFormData.cliente) return;
 
-  try {
-    await addCliente(selectedTrabajoId, {
-      cliente: Number(clienteFormData.cliente),
-      tipo_etiqueta: clienteFormData.tipo_etiqueta,
-      observaciones: clienteFormData.observaciones || null,
-    });
+    try {
+      await addCliente(selectedTrabajoId, {
+        cliente: Number(clienteFormData.cliente),
+        tipo_etiqueta: clienteFormData.tipo_etiqueta,
+        observaciones: clienteFormData.observaciones || null,
+      });
 
-    alert("Cliente agregado correctamente");
-    handleCloseAgregarClienteModal();
+      alert("Cliente agregado correctamente");
+      handleCloseAgregarClienteModal();
 
-    if (selectedTrabajo) handleViewInfo(selectedTrabajo);
-  } catch (err: any) {
-    alert(JSON.stringify(err?.response?.data || err));
-  }
-};
+      if (selectedTrabajo) handleViewInfo(selectedTrabajo);
+    } catch (err: any) {
+      alert(JSON.stringify(err?.response?.data || err));
+    }
+  };
   const eliminarClienteTrabajo = async (clienteTrabajoId: number) => {
-  if (!selectedTrabajoId) return;
-  if (!confirm("¿Estás seguro de eliminar este cliente del trabajo?")) return;
+    if (!selectedTrabajoId) return;
+    if (!confirm("¿Estás seguro de eliminar este cliente del trabajo?")) return;
 
-  try {
-    await removeCliente(selectedTrabajoId, clienteTrabajoId);
+    try {
+      await removeCliente(selectedTrabajoId, clienteTrabajoId);
 
-    alert("Cliente eliminado correctamente");
-    if (selectedTrabajo) handleViewInfo(selectedTrabajo);
-  } catch (err: any) {
-    alert(JSON.stringify(err?.response?.data || err));
-  }
-};
+      alert("Cliente eliminado correctamente");
+      if (selectedTrabajo) handleViewInfo(selectedTrabajo);
+    } catch (err: any) {
+      alert(JSON.stringify(err?.response?.data || err));
+    }
+  };
+  const crearPagoTrabajo = async () => {
+    if (!selectedTrabajo?.cuenta?.id) return;
+
+    try {
+      await addPago({
+        cuenta_cobrar: selectedTrabajo.cuenta.id,
+        forma_pago: Number(pagoFormData.forma_pago),
+        fecha_pago: pagoFormData.fecha_pago,
+        monto: pagoFormData.monto,
+        observaciones: pagoFormData.observaciones || null,
+      });
+
+      alert("Pago registrado correctamente ✅");
+      handleCloseAgregarPagoModal();
+
+      // recargar info del trabajo abierto
+      handleViewInfo(selectedTrabajo);
+    } catch (err: any) {
+      alert(JSON.stringify(err?.response?.data || err));
+    }
+  };
+  const eliminarPagoTrabajo = async (pagoId: number) => {
+    if (!confirm("¿Seguro que deseas eliminar este pago?")) return;
+
+    try {
+      await removePago(pagoId);
+      alert("Pago eliminado correctamente ✅");
+
+      if (selectedTrabajo) {
+        handleViewInfo(selectedTrabajo); // refrescar info
+      }
+    } catch (err: any) {
+      alert(JSON.stringify(err?.response?.data || err));
+    }
+  };
   //HANDLERS
   const handleCloseModal = () => {
     setShowModal(false);
@@ -188,6 +236,14 @@ const Trabajos = () => {
   const handleCloseAgregarClienteModal = () => {
     setShowAgregarClienteModal(false);
     setClienteFormData(INITIAL_CLIENTE_FORM);
+  };
+  const handleOpenAgregarPagoModal = () => {
+    setPagoFormData(INITIAL_PAGO_FORM);
+    setShowAgregarPagoModal(true);
+  };
+  const handleCloseAgregarPagoModal = () => {
+    setShowAgregarPagoModal(false);
+    setPagoFormData(INITIAL_PAGO_FORM);
   };
   const handleSubmit = async () => {
     if (editingTrabajo) {
@@ -297,6 +353,36 @@ const Trabajos = () => {
       rows: 3,
     },
   ];
+  const pagoFormFields: FormField[] = [
+    {
+      name: "forma_pago",
+      label: "Forma de Pago",
+      type: "select",
+      required: true,
+      options: formaPago.map((fp) => ({
+        value: fp.id,
+        label: fp.nombre,
+      })),
+    },
+    {
+      name: "fecha_pago",
+      label: "Fecha de Pago",
+      type: "date",
+      required: true,
+    },
+    {
+      name: "monto",
+      label: "Monto",
+      type: "number",
+      required: true,
+    },
+    {
+      name: "observaciones",
+      label: "Observaciones",
+      type: "textarea",
+      rows: 2,
+    },
+  ]
   // Configuración de la tabla
   const tableColumns: TableColumn<Trabajo>[] = [
     {
@@ -409,6 +495,8 @@ const Trabajos = () => {
         selectedTrabajo={selectedTrabajo}
         handleOpenAgregarClienteModal={handleOpenAgregarClienteModal}
         eliminarClienteTrabajo={eliminarClienteTrabajo}
+        handleOpenAgregarPagoModal={handleOpenAgregarPagoModal}
+        eliminarPago={eliminarPagoTrabajo}
       />
 
       {/* Modal historial VIEW HISTORIAL*/}
@@ -435,6 +523,15 @@ const Trabajos = () => {
         clienteFormData={clienteFormData}
         setClienteFormData={setClienteFormData}
         agregarClienteTrabajo={agregarClienteTrabajo}
+      />
+      {/* Modal para Crear Pagos a Trabajos */}
+      <AddPagoTrabajoFormModal 
+        open={showAgregarPagoModal}
+        onClose={handleCloseAgregarPagoModal}
+        pagoFormFields={pagoFormFields}
+        pagoFormData={pagoFormData}
+        setPagoFormData={setPagoFormData}
+        crearPagoTrabajo={crearPagoTrabajo}
       />
       <br />
       {/* Tabla */}

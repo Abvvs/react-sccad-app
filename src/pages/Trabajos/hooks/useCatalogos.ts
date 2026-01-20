@@ -3,13 +3,15 @@ import {
   getTiposTrabajo,
   getChoices,
   getClientes,
+  getFormaPago,
 } from "../services/trabajoService";
-import type { TipoTrabajo, EstadoTrabajo, Cliente, Choices } from "../types/trabajos";
+import type { TipoTrabajo, EstadoTrabajo, Cliente, Choices, FormaPago } from "../types/trabajos";
 
 export const useCatalogos = () => {
   const [tiposTrabajo, setTiposTrabajo] = useState<TipoTrabajo[]>([]);
   const [estadosTrabajo, setEstadosTrabajo] = useState<EstadoTrabajo[]>([]);
   const [clientesDisponibles, setClientesDisponibles] = useState<Cliente[]>([]);
+  const [formaPago, setFormaPago] = useState<FormaPago[]>([]);
 
   const loadTiposTrabajo = useCallback(() => {
     return getTiposTrabajo().then((res) => {
@@ -36,15 +38,29 @@ export const useCatalogos = () => {
       return res;
     });
   }, []);
+  const loadFormaPago = useCallback(() => {
+    return getFormaPago().then((res) => {
+      const formas = res.data.forma_pago.map(
+        ([value, label]: [string, string]) => ({
+          id: Number(value),
+          nombre: label,
+        })
+      );
+      setFormaPago(formas);
+      return res;
+    });
+  }, []);
 
   const loadAllCatalogos = useCallback(() => {
-    return Promise.all([loadTiposTrabajo(), loadChoices(), loadClientes()]);
-  }, [loadTiposTrabajo, loadChoices, loadClientes]);
+    return Promise.all([loadTiposTrabajo(), loadChoices(), loadClientes(), loadFormaPago()]);
+  }, [loadTiposTrabajo, loadChoices, loadClientes, loadFormaPago]);
 
   return {
     tiposTrabajo,
     estadosTrabajo,
     clientesDisponibles,
+    formaPago,
+    loadFormaPago,
     loadTiposTrabajo,
     loadChoices,
     loadClientes,

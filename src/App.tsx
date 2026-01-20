@@ -13,6 +13,7 @@ import VentanillaVirtual from "./pages/VentanillaVirtual/VentanillaVirtual";
 import Trabajos from "./pages/Trabajos/Trabajos";
 import Empleados from "./pages/Dashboard/Empleados";
 import Clientes from "./pages/Dashboard/Clientes";
+import MovimientosCaja from "./pages/MovimientosCaja/MovimientosCaja";
 
 function Logout() {
   localStorage.clear();
@@ -49,6 +50,8 @@ function App() {
           <Route path="/trabajos" element={<Trabajos />} />
           <Route path="/empleados" element={<Empleados />} />
           <Route path="/clientes" element={<Clientes />} />
+          <Route path="/movimiento_caja" element={<MovimientosCaja />} />
+
         </Route>
         {/* 🚫 404 */}
         <Route element={<RootLayout />}>
