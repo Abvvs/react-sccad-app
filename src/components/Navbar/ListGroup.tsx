@@ -22,7 +22,13 @@ const ListGroup: React.FC<ListGroupProps> = ({
       className={`${mobile ? "flex flex-col items-center gap-3" : "flex items-center gap-8"}`}
     >
       {navLinkList.map((links) => {
-        const isActive = location.pathname === links.href; // marca activo según URL
+        const isActive =
+          links.href === "/"
+            ? location.pathname === "/" && !location.hash
+            : links.href.startsWith("/#")
+              ? location.pathname === "/" &&
+                location.hash === links.href.replace("/", "")
+              : location.pathname === links.href; // marca activo según URL
         return (
           <Link
             key={links.name}

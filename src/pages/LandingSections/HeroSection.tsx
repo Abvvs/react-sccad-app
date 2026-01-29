@@ -16,7 +16,7 @@ const HeroSection = () => {
   };
   return (
     <section
-      id="hero"
+      id="inicio"
       className="relative min-h-[90vh] flex items-center pt-16"
     >
       {/* Background image */}

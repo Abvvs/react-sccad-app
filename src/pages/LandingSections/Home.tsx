@@ -2,8 +2,9 @@ import HeroSection from "./HeroSection";
 import ServiceSection from "./ServiceSection";
 import AboutUsSection from "./AboutUsSection";
 import ContactSection from "./ContactSection";
+import ProjectSection from "./ProjectSection";
 import AnimateBanner from "../../components/Banners/AnimateBanner";
-import HeroCarouselScroll from "../../components/Heros/HeroCarouselScroll";
+
 
 const Home = () => {
   return (
@@ -11,8 +12,8 @@ const Home = () => {
       <HeroSection />
       <AnimateBanner />
       <ServiceSection />
-      <HeroCarouselScroll />
       <AboutUsSection />
+      <ProjectSection />
       <ContactSection />
     </>
   );

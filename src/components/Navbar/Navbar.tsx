@@ -5,11 +5,11 @@ import { Menu, X } from "lucide-react";
 import { Button } from "../Buttons/Button";
 
 const navLinkList = [
-  { name: "Inicio", href: "/" },
-  { name: "Servicios", href: "#servicios" },
-  { name: "Sobre nosotros", href: "#nosotros" },
-  { name: "Proyectos", href: "#proyectos" },
-  { name: "Galería", href: "#galeria" },
+  { name: "Inicio", href: "/#inicio" },
+  { name: "Servicios", href: "/#servicios" },
+  { name: "Sobre nosotros", href: "/#nosotros" },
+  { name: "Proyectos", href: "/#proyectos" },
+  { name: "Galería", href: "/#galeria" },
   { name: "Ventanilla Virtual", href: "/ventanilla" },
 ];
 

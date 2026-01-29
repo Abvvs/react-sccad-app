@@ -4,26 +4,51 @@ interface ServiceCardProps {
   title: string;
   description: string;
   imageUrl: string;
+  category: string;
 }
 
 const SimpleCard: React.FC<ServiceCardProps> = ({
   title,
   description,
   imageUrl,
+  category,
 }) => {
   return (
-    <li className="bg-background-light dark:bg-background-dark/50 p-6 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300">
-      <img
-        src={imageUrl}
-        alt={`${title} en Lago Agrio`}
-        width={450}
-        height={450}
-        className="w-full h-40 object-cover rounded-lg mb-4"
-        loading="lazy"
-      />
-      <h3 className="text-lg font-bold text-[#d45500] mb-2">{title}</h3>
-      <p className="text-sm text-gray-600 dark:text-gray-400">{description}</p>
-    </li>
+    <article className="
+      group overflow-hidden rounded-2xl
+      bg-background-light dark:bg-background-dark/50
+      shadow-md hover:shadow-xl
+      transition-all duration-300
+    ">
+      {/* Imagen */}
+      <div className="aspect-[16/9] overflow-hidden">
+        <img
+          src={imageUrl}
+          alt={title}
+          loading="lazy"
+          className="
+            w-full h-full object-cover
+            transition-transform duration-500
+            group-hover:scale-105
+          "
+        />
+      </div>
+
+      {/* Contenido */}
+      <div className="p-6">
+        <span className="text-xs font-semibold uppercase tracking-wide text-primary">
+          {category}
+        </span>
+
+        <h3 className="mt-2 text-lg font-bold text-foreground">
+          {title}
+        </h3>
+
+        <p className="mt-2 text-sm text-muted-foreground leading-relaxed">
+          {description}
+        </p>
+      </div>
+    </article>
   );
 };
 
