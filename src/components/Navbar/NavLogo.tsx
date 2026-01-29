@@ -7,12 +7,12 @@ const NavLogo = () => {
       <img
         src={sccad}
         alt="Logo SCCAD topografia"
-        className="w-8 h-8 md:w-15 md:h-15" // 👈 Controla el tamaño aquí
+        className="w-8 h-8 md:w-14 md:h-14" 
       />
       <img
         src={sccad_letras}
         alt="Logo SCCAD topografia"
-        className="w-8 h-8 md:w-15 md:h-15" // 👈 Controla el tamaño aquí
+        className="w-8 h-8 md:w-15 md:h-15" 
       />
     </a>
   );

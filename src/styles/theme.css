@@ -1,0 +1,221 @@
+@custom-variant dark (&:is(.dark *));
+
+:root {
+  --font-size: 16px;
+  --background: #f5f5f0;
+  --foreground: #4a4741;
+  --card: #ffffff;
+  --card-foreground: #4a4741;
+  --popover: #ffffff;
+  --popover-foreground: #4a4741;
+  --primary: #d45500;
+  --primary-foreground: #ffffff;
+  --secondary: #6b7c5d;
+  --secondary-foreground: #ffffff;
+  --muted: #e0ddd5;
+  --muted-foreground: #858278;
+  --accent: #c4a57b;
+  --accent-foreground: #4a4741;
+  --destructive: #d4183d;
+  --destructive-foreground: #ffffff;
+  --border: rgba(184, 181, 173, 0.3);
+  --input: transparent;
+  --input-background: #ffffff;
+  --switch-background: #b8b5ad;
+  --font-weight-medium: 500;
+  --font-weight-normal: 400;
+  --ring: #d45500;
+  --chart-1: #d45500;
+  --chart-2: #6b7c5d;
+  --chart-3: #c4a57b;
+  --chart-4: #b87d4b;
+  --chart-5: #8ba8c4;
+  --radius: 0.625rem;
+  --sidebar: #f5f5f0;
+  --sidebar-foreground: #4a4741;
+  --sidebar-primary: #d45500;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #e8d5c4;
+  --sidebar-accent-foreground: #5c4a3a;
+  --sidebar-border: #e0ddd5;
+  --sidebar-ring: #d45500;
+  
+  /* Custom topography colors */
+  --color-primary-light: #ff7a33;
+  --color-primary-dark: #a34400;
+  --color-terra-light: #e8d5c4;
+  --color-terra: #c4a57b;
+  --color-terra-medium: #8b7355;
+  --color-terra-dark: #5c4a3a;
+  --color-forest-light: #a8b89f;
+  --color-forest: #6b7c5d;
+  --color-forest-dark: #4a5a3d;
+  --color-stone-50: #f5f5f0;
+  --color-stone-100: #e0ddd5;
+  --color-stone-200: #b8b5ad;
+  --color-stone-300: #858278;
+  --color-stone-400: #4a4741;
+  --color-stone-500: #2a2722;
+  --color-sand: #d4b896;
+  --color-clay: #b87d4b;
+  --color-sky: #8ba8c4;
+}
+
+.dark {
+  --background: #2a2722;
+  --foreground: #e8d5c4;
+  --card: #4a4741;
+  --card-foreground: #e8d5c4;
+  --popover: #4a4741;
+  --popover-foreground: #e8d5c4;
+  --primary: #d45500;
+  --primary-foreground: #ffffff;
+  --secondary: #6b7c5d;
+  --secondary-foreground: #ffffff;
+  --muted: #858278;
+  --muted-foreground: #b8b5ad;
+  --accent: #8b7355;
+  --accent-foreground: #e8d5c4;
+  --destructive: oklch(0.396 0.141 25.723);
+  --destructive-foreground: oklch(0.637 0.237 25.331);
+  --border: rgba(184, 181, 173, 0.2);
+  --input: rgba(184, 181, 173, 0.1);
+  --ring: #d45500;
+  --font-weight-medium: 500;
+  --font-weight-normal: 400;
+  --chart-1: #d45500;
+  --chart-2: #6b7c5d;
+  --chart-3: #c4a57b;
+  --chart-4: #b87d4b;
+  --chart-5: #8ba8c4;
+  --sidebar: #2a2722;
+  --sidebar-foreground: #e8d5c4;
+  --sidebar-primary: #d45500;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #4a4741;
+  --sidebar-accent-foreground: #e8d5c4;
+  --sidebar-border: #4a4741;
+  --sidebar-ring: #d45500;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-input-background: var(--input-background);
+  --color-switch-background: var(--switch-background);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+  
+  /* Custom topography color utilities */
+  --color-primary-light: var(--color-primary-light);
+  --color-primary-dark: var(--color-primary-dark);
+  --color-terra-light: var(--color-terra-light);
+  --color-terra: var(--color-terra);
+  --color-terra-medium: var(--color-terra-medium);
+  --color-terra-dark: var(--color-terra-dark);
+  --color-forest-light: var(--color-forest-light);
+  --color-forest: var(--color-forest);
+  --color-forest-dark: var(--color-forest-dark);
+  --color-stone-50: var(--color-stone-50);
+  --color-stone-100: var(--color-stone-100);
+  --color-stone-200: var(--color-stone-200);
+  --color-stone-300: var(--color-stone-300);
+  --color-stone-400: var(--color-stone-400);
+  --color-stone-500: var(--color-stone-500);
+  --color-sand: var(--color-sand);
+  --color-clay: var(--color-clay);
+  --color-sky: var(--color-sky);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+  }
+
+  /**
+  * Default typography styles for HTML elements (h1-h4, p, label, button, input).
+  * These are in @layer base, so Tailwind utility classes (like text-sm, text-lg) automatically override them.
+  */
+
+  html {
+    font-size: var(--font-size);
+  }
+
+  h1 {
+    font-size: var(--text-2xl);
+    font-weight: var(--font-weight-medium);
+    line-height: 1.5;
+  }
+
+  h2 {
+    font-size: var(--text-xl);
+    font-weight: var(--font-weight-medium);
+    line-height: 1.5;
+  }
+
+  h3 {
+    font-size: var(--text-lg);
+    font-weight: var(--font-weight-medium);
+    line-height: 1.5;
+  }
+
+  h4 {
+    font-size: var(--text-base);
+    font-weight: var(--font-weight-medium);
+    line-height: 1.5;
+  }
+
+  label {
+    font-size: var(--text-base);
+    font-weight: var(--font-weight-medium);
+    line-height: 1.5;
+  }
+
+  button {
+    font-size: var(--text-base);
+    font-weight: var(--font-weight-medium);
+    line-height: 1.5;
+  }
+
+  input {
+    font-size: var(--text-base);
+    font-weight: var(--font-weight-normal);
+    line-height: 1.5;
+  }
+}

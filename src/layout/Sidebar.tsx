@@ -1,4 +1,5 @@
 import { Link, useLocation } from "react-router-dom";
+
 import { useState } from "react";
 import { Menu, X, LogOut } from "lucide-react";
 import { ACCESS_TOKEN } from "../constants";
@@ -11,6 +12,7 @@ const menuItems = [
   { label: "Empleados", path: "/empleados" },
   { label: "Clientes", path: "/clientes" },
   { label: "Caja", path: "/movimiento_caja" },
+  { label: "Personal-Trabajos", path: "/trabajos/asignacion_trabajo/" },
 ];
 function getUserName() {
   const token = localStorage.getItem(ACCESS_TOKEN);

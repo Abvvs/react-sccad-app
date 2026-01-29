@@ -6,7 +6,7 @@ import ProtectedRoute from "./components/ProtectedRoute";
 
 import Login from "./pages/Auth/Login";
 import Register from "./pages/Auth/Register";
-import Home from "./pages/Home/Home";
+import Home from "./pages/LandingSections/Home";
 import HomeDashboard from "./pages/Dashboard/HomeDashboard";
 import NotFoundLandingPage from "./pages/NotFoundLandingPage";
 import VentanillaVirtual from "./pages/VentanillaVirtual/VentanillaVirtual";
@@ -14,6 +14,7 @@ import Trabajos from "./pages/Trabajos/Trabajos";
 import Empleados from "./pages/Dashboard/Empleados";
 import Clientes from "./pages/Dashboard/Clientes";
 import MovimientosCaja from "./pages/MovimientosCaja/MovimientosCaja";
+import AsignacionTrabajos from "./pages/AsignacionTrabajos/AsignacionTrabajos";
 
 function Logout() {
   localStorage.clear();
@@ -51,6 +52,7 @@ function App() {
           <Route path="/empleados" element={<Empleados />} />
           <Route path="/clientes" element={<Clientes />} />
           <Route path="/movimiento_caja" element={<MovimientosCaja />} />
+          <Route path="/trabajos/asignacion_trabajo" element={<AsignacionTrabajos />} />
 
         </Route>
         {/* 🚫 404 */}

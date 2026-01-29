@@ -10,28 +10,46 @@ interface ListGroupProps {
   navLinkList: NavLink[];
 }
 
-const ListGroup: React.FC<ListGroupProps> =  ({mobile = false, onLinkClick, navLinkList}:ListGroupProps) => {
+const ListGroup: React.FC<ListGroupProps> = ({
+  mobile = false,
+  onLinkClick,
+  navLinkList,
+}: ListGroupProps) => {
   const location = useLocation(); // obtiene la ruta actual
 
   return (
     <nav
-      className={`${ mobile ? "flex flex-col items-center gap-4" : "flex items-center gap-8"}`}
+      className={`${mobile ? "flex flex-col items-center gap-3" : "flex items-center gap-8"}`}
     >
       {navLinkList.map((links) => {
-        const isActive = location.pathname === links.href;// marca activo según URL
-        return(
-        <Link
-          key={links.name}
-          to={links.href}
-          onClick= {onLinkClick}
-          className={`text-sm font-medium transition-colors ${
-            isActive ? 'text-[#d45500]' : 'hover:text-[#d45500]  text-gray-500'
-          }`}
-        >
-          {links.name}
-        </Link>
+        const isActive = location.pathname === links.href; // marca activo según URL
+        return (
+          <Link
+            key={links.name}
+            to={links.href}
+            onClick={onLinkClick}
+            className={` group relative px-2 py-1 text-sm font-medium text-muted-foreground transition-all duration-200 hover:text-foreground focus:outline-none focus-visible:ring-2 focus-visible:ring-ring ${
+              isActive ? "text-primary" : ""
+            } ${mobile ? "text-base" : ""}`}
+          >
+            {links.name}
+            {/* Indicador activo / hover */}
+            <span
+              className={`
+                absolute left-0 -bottom-1
+                h-0.5 w-full
+                bg-primary
+                rounded-full
+                transition-transform duration-300
+                origin-left
+                ${
+                  isActive ? "scale-x-100" : "scale-x-0 group-hover:scale-x-100"
+                }
+              `}
+            />
+          </Link>
         );
-    })}
+      })}
     </nav>
   );
 };
