@@ -9,40 +9,41 @@ const ContactSection = () => {
   };
   return (
     <section
-      className="py-16 sm:py-24 bg-gray-50 relative overflow-hidden"
+      id="contacto"
+      className="py-20 bg-background relative overflow-hidden"
       aria-labelledby="contact-title"
     >
       <div className="container mx-auto px-6">
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 max-w-7xl mx-auto">
+        <div className="grid lg:grid-cols-2 gap-16 max-w-7xl mx-auto">
           {/* Columna izquierda - Información */}
           <div className="flex flex-col justify-center space-y-8">
             {/* Encabezado */}
             <div>
               <h2
-                className="text-4xl md:text-5xl font-bold text-[#d45500] mb-4"
+                className="text-3xl md:text-4xl font-bold text-primary mb-4"
                 id="contact-title"
               >
                 Contacto SC CAD
               </h2>
-              <p className="text-lg text-gray-600 leading-relaxed">
-                ¿Necesitas servicios de{" "}
-                <strong>
-                  topografía, medición de terrenos o diseño técnico
+              <p className="text-lg text-muted-foreground leading-relaxed max-w-xl">
+                Ofrecemos servicios profesionales en{" "}
+                <strong className="text-foreground">
+                  levantamientos topográficos, subdivisiones, replanteos y
+                  georreferenciación
                 </strong>
-                ? En SCCAD estamos listos para asesorarte y brindarte soluciones
-                profesionales adaptadas a tu proyecto.
+                . Estamos listos para asesorarte en tu próximo proyecto.
               </p>
             </div>
 
             {/* Información de contacto */}
-            <div className="grid sm:grid-cols-2 gap-8">
+            <div className="grid sm:grid-cols-2 gap-6">
               {/* Dirección */}
               <ContactInfoCard
                 icon={MapPin}
                 title="Nuestra Dirección"
-                iconBgColor="bg-[#e8d5c4]"
+                iconBgColor="bg-accent"
               >
-                <address className="not-italic text-sm leading-relaxed">
+                <address className="not-italic text-sm leading-relaxed text-muted-foreground">
                   12 de Febrero entre Cofánes y Velasco Ibarra
                   <br />
                   Lago Agrio, Ecuador
@@ -53,19 +54,19 @@ const ContactSection = () => {
               <ContactInfoCard
                 icon={Phone}
                 title="Información de Contacto"
-                iconBgColor="bg-[#e8d5c4]"
+                iconBgColor="bg-accent"
               >
                 <a
                   href="tel:+593980120958"
                   aria-label="Llamar a SCCAD"
-                  className="text-sm hover:text-[#d45500] transition-colors block"
+                  className="text-sm hover:text-primary transition-colors block"
                 >
                   +593 980 120 958
                 </a>
                 <a
                   href="mailto:topografiasccad@gmail.com"
                   aria-label="Enviar correo a SCCAD"
-                  className="text-sm hover:text-[#d45500] transition-colors block break-all"
+                  className="text-sm hover:text-primary transition-colors block break-all"
                 >
                   topografiasccad@gmail.com
                 </a>
@@ -73,23 +74,23 @@ const ContactSection = () => {
             </div>
 
             {/* Horarios */}
-            <div className="bg-white rounded-xl p-6 border border-gray-200 shadow-sm">
-              <h3 className="text-lg font-semibold text-gray-800 mb-3">
-                Horario de Atención
-              </h3>
-              <div className="space-y-2 text-gray-600">
-                <div className="flex justify-between items-center">
-                  <span className="text-sm">Lunes - Viernes</span>
-                  <span className="text-sm font-semibold">
-                    <time dateTime="08:00">8:00 AM</time> –{" "}
-                    <time dateTime="17:30">5:30 PM</time>
+            <div className="bg-card border border-border rounded-xl p-6 shadow-sm">
+              <div className="flex items-center gap-2 mb-4">
+                <h3 className="text-lg font-medium text-foreground">
+                  Horario de Atención
+                </h3>
+              </div>
+              <div className="space-y-3 text-muted-foreground">
+                <div className="flex justify-between">
+                  <span>Lunes – Viernes</span>
+                  <span className="font-medium text-foreground">
+                    8:00 AM – 5:30 PM
                   </span>
                 </div>
-                <div className="flex justify-between items-center">
-                  <span className="text-sm">Sábado - Domingo</span>
-                  <span className="text-sm font-semibold text-gray-400">
-                    Cerrado
-                  </span>
+
+                <div className="flex justify-between">
+                  <span>Sábado – Domingo</span>
+                  <span className="text-muted">Cerrado</span>
                 </div>
               </div>
             </div>
@@ -98,9 +99,9 @@ const ContactSection = () => {
           <div className="relative">
             <div className="sticky top-24">
               {/* Contenedor del mapa */}
-              <div className="relative rounded-2xl overflow-hidden shadow-2xl h-[500px] lg:h-[600px]">
+              <div className="relative rounded-2xl overflow-hidden shadow-xl border border-border h-[500px] lg:h-[600px] bg-card">
                 <iframe
-                  title="Ubicación de SCCAD en Lago Agrio"
+                  title="Ubicación oficina SC CAD en Lago Agrio"
                   src={mapUrl}
                   width="100%"
                   height="100%"
@@ -114,7 +115,7 @@ const ContactSection = () => {
                 <button
                   onClick={handleGetDirections}
                   aria-label="Abrir ubicación de SCCAD en Google Maps"
-                  className="absolute bottom-6 left-6 bg-[#8b7355] hover:bg-[#5c4a3a] text-white px-6 py-3 rounded-lg font-semibold flex items-center gap-2 shadow-lg transition-all duration-300 hover:scale-105 active:scale-95"
+                  className="absolute bottom-6 left-6 bg-secondary text-secondary-foreground hover:bg-forest-dark px-6 py-3 rounded-lg font-medium shadow-lg transition-all duration-300 hover:scale-105 active:scale-95"
                 >
                   Cómo llegar
                 </button>

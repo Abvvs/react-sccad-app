@@ -3,6 +3,7 @@ import ListGroup from "./ListGroup";
 import NavLogo from "./NavLogo";
 import { Menu, X } from "lucide-react";
 import { Button } from "../Buttons/Button";
+import { useNavigate, useLocation } from "react-router-dom";
 
 const navLinkList = [
   { name: "Inicio", href: "/#inicio" },
@@ -15,6 +16,18 @@ const navLinkList = [
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const navigate = useNavigate();
+  const location = useLocation();
+  const handleContactClick = () => {
+    setIsOpen(false);
+
+    if (location.pathname !== "/") {
+      navigate("/#contacto");
+    } else {
+      const section = document.getElementById("contacto");
+      section?.scrollIntoView({ behavior: "smooth" });
+    }
+  };
   return (
     <header className="sticky top-0 z-50 bg-background/80 backdrop-blur-md border-b border-border transition-colors">
       <div className="container mx-auto px-6 ">
@@ -26,7 +39,7 @@ const Navbar = () => {
             {/* BOTÓN CTA */}
             <Button
               className="ml-4"
-              href="#contacto"
+              onClick={handleContactClick}
               variant="cta"
               size="sm"
               icon="arrow"
@@ -58,7 +71,7 @@ const Navbar = () => {
               />
               {/* BOTÓN CTA MOBILE */}
               <Button
-                href="#contacto"
+                href="/#contacto"
                 variant="cta"
                 size="sm"
                 icon="arrow"

@@ -1,8 +1,4 @@
-/* import HeroCarousel from "../../components/Heros/HeroCarousel";
-import arquitecturaImage from "../../assets/arquitectura.webp";
-import topografiaImage from "/mapa-topografia.webp";
-import topografiaViasImage from "../../assets/topografia_vias.webp"; */
-import topografiaTierrasImage from "../../assets/node_topografia_anivellament_3.webp";
+import topografiaTierrasImage from "@/assets/node_topografia_anivellament_3.webp";
 import { Button } from "../../components/Buttons/Button";
 
 const HeroSection = () => {

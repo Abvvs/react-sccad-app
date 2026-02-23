@@ -21,7 +21,7 @@ const SimpleCard: React.FC<ServiceCardProps> = ({
       transition-all duration-300
     ">
       {/* Imagen */}
-      <div className="aspect-[16/9] overflow-hidden">
+      <div className="aspect-video overflow-hidden">
         <img
           src={imageUrl}
           alt={title}

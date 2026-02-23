@@ -1,5 +1,5 @@
 import { CheckCircle } from "lucide-react";
-import aboutImage from "../../assets/LEVANTAMIENTO_2.webp"
+import aboutImage from "@/assets/LEVANTAMIENTO_2.webp"
 
 const highlights = [
   "Más de 25 años de experiencia en topografía",

@@ -4,6 +4,7 @@ import AboutUsSection from "./AboutUsSection";
 import ContactSection from "./ContactSection";
 import ProjectSection from "./ProjectSection";
 import AnimateBanner from "../../components/Banners/AnimateBanner";
+import GallerySection from "./GallerySection.tsx/GallerySection";
 
 
 const Home = () => {
@@ -14,6 +15,7 @@ const Home = () => {
       <ServiceSection />
       <AboutUsSection />
       <ProjectSection />
+      <GallerySection />
       <ContactSection />
     </>
   );
