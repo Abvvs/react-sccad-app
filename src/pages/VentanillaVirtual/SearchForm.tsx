@@ -46,7 +46,7 @@ const SearchForm = () => {
 
     try {
       const res = await axios.get(
-        `${API_URL}/trabajos/buscar/?q=${encodeURIComponent(query)}`
+        `${API_URL}/trabajos/buscar/?q=${encodeURIComponent(query)}`,
       );
       //console.log("Respuesta:", res.data);
       setTrabajos(res.data);
@@ -70,12 +70,19 @@ const SearchForm = () => {
       minute: "2-digit",
     });
   };
+  if (loading) {
+    return (
+      <div className="text-center py-16 text-muted-foreground">
+        Consultando trámite...
+      </div>
+    );
+  }
 
   return (
     <div className="space-y-6">
       <form
         onSubmit={handleSubmit}
-        className="mb-8 p-6 rounded-xl bg-white/50 dark:bg-background-dark/50 border shadow-lg"
+        className="mb-8 bg-card border border-border shadow-md rounded-2xl p-8"
       >
         <div className="flex flex-col gap-4 sm:flex-row sm:items-end">
           <div className="flex-1">
@@ -91,33 +98,45 @@ const SearchForm = () => {
               placeholder="Ej: SCCAD-2024-001"
               value={query}
               onChange={(e) => setQuery(e.target.value)}
-              className="form-input w-full rounded-lg border-terracotta/40 bg-background-light/50 dark:bg-zinc-800/50 dark:border-terracotta/60 focus:border-primary focus:ring-primary h-12 px-4 text-base mt-1.5"
+              className="w-full h-12 px-4 mt-2 rounded-lg 
+             bg-input-background 
+             border border-border 
+             focus:outline-none 
+             focus:ring-2 focus:ring-ring 
+             focus:border-primary 
+             transition"
             />
           </div>
 
           <button
             type="submit"
             disabled={loading}
-            className="flex min-w-[84px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-12 px-8 bg-primary text-[#d45500] text-base font-bold shadow-md hover:bg-primary/90 transition-colors"
+            className="h-12 px-8 rounded-lg 
+           bg-primary text-primary-foreground 
+           font-semibold shadow-sm 
+           hover:bg-primary/90 
+           transition disabled:opacity-50"
           >
             {loading ? "..." : "Consultar"}
           </button>
         </div>
       </form>
       {error && (
-        <div className="text-red-500 text-center font-semibold">{error}</div>
+        <div className="p-4 rounded-lg bg-destructive/10 text-destructive border border-destructive/20 text-center font-medium">
+          {error}
+        </div>
       )}
       {/* 📋 Resultados */}
       {trabajos && (
         <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
           {/* 📂 Cabecera del Trabajo */}
-          <div className="bg-[#ff7a33] rounded-3xl p-6 shadow-sm border border-zinc-100 mb-6">
+          <div className="bg-primary/50 border border-primary/20 rounded-3xl p-6 shadow-sm mb-6">
             <div className="flex flex-col md:flex-row justify-between gap-4">
               <div>
                 <span className="text-xs font-bold uppercase tracking-wider">
                   Código de Trabajo
                 </span>
-                <h2 className="text-3xl font-black text-zinc-800 dark:text-white">
+                <h2 className="text-3xl font-bold text-foreground">
                   {trabajos.numero_trabajo}
                 </h2>
                 <p className="text-zinc-100 mt-1">
@@ -126,10 +145,10 @@ const SearchForm = () => {
               </div>
               <div className="text-right">
                 <span
-                  className="px-4 py-2 rounded-full text-sm font-bold inline-block"
+                  className="px-4 py-2 rounded-full text-sm font-semibold bg-muted text-foreground"
                   style={{
-                    backgroundColor: `${trabajos.estado_actual?.color_hex}20`,
-                    color: trabajos.estado_actual?.color_hex,
+                    backgroundColor: `${trabajos.estado_actual?.color_hex}90`,
+                    color: "text-muted-foreground",
                   }}
                 >
                   {trabajos.estado_actual?.nombre}
@@ -151,18 +170,18 @@ const SearchForm = () => {
           </div>
 
           {/* ⏳ Timeline de Historial */}
-          <div className="bg-[#e8d5c4] rounded-3xl p-6 shadow-sm ">
-            <h3 className="text-xl font-bold mb-8 flex items-center gap-2 text-[#d45500]">
-              <span className="w-2 h-6 bg-[#d45500] rounded-full"></span>
+          <div className="bg-card border border-border shadow-sm rounded-2xl p-8 ">
+            <h3 className="text-xl font-bold mb-8 flex items-center gap-2 text-primary">
+              <span className="w-2 h-6 bg-primary rounded-full"></span>
               Historial de Avance
             </h3>
 
-            <div className="relative ml-4 border-l-2 border-zinc-100 space-y-10 pb-4">
+            <div className="relative ml-4 border-l-2 border-border space-y-10 pb-4">
               {trabajos.historial.map((h, index) => (
                 <div key={h.id} className="relative pl-8">
                   {/* Círculo de la línea de tiempo */}
                   <div
-                    className={`absolute -left-[9px] top-0 w-4 h-4 rounded-full border-4 border-[#d45500]  ${
+                    className={`absolute -left-[9px] top-0 w-4 h-4 rounded-full border-4 border-primary  ${
                       index === 0 ? "bg-primary animate-pulse" : "bg-[#f5f5f0]"
                     }`}
                   ></div>
@@ -171,7 +190,7 @@ const SearchForm = () => {
                     <div>
                       <h4
                         className={`font-bold ${
-                          index === 0 ? "text-[#d2691e]" : "text-zinc-600"
+                          index === 0 ? "text-primary" : "text-zinc-600"
                         }`}
                       >
                         {h.estado_trabajo_nombre}
@@ -180,7 +199,7 @@ const SearchForm = () => {
                         {h.departamento_actual || "Oficina Central"}
                       </p>
                     </div>
-                    <time className="text-xs font-mono text-zinc-200 bg-amber-700 px-2 py-1 rounded">
+                    <time className="text-xs font-mono bg-muted text-muted-foreground px-2 py-1 rounded">
                       {formatDate(h.fecha_cambio)}
                     </time>
                   </div>
