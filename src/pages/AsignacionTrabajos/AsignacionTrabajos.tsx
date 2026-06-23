@@ -158,7 +158,7 @@ const AsignacionTrabajos = () => {
       required: true,
       options: catalogos.trabajos.map((t: any) => ({
         value: t.id.toString(),
-        label: t.codigo || `Trabajo #${t.id}`,
+        label: `${t.numero_trabajo} · ${t.tipo_trabajo.nombre} · ${t.descripcion}`,
       })),
     },
     {
