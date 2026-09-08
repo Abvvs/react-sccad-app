@@ -1,5 +1,6 @@
 import { useState, type FormEvent } from "react";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 import api from "../../api";
 import { ACCESS_TOKEN, REFRESH_TOKEN } from "../../constants";
 import logo from "../../assets/sccad.svg";
@@ -48,7 +49,17 @@ const AuthForm: React.FC<AuthFormProps> = ({ route, method }) => {
         navigate("/login");
       }
     } catch (error) {
-      if (error instanceof Error) {
+      if (axios.isAxiosError(error)) {
+        if (!error.response) {
+          alert("No se pudo conectar con el servidor. ¿Está encendido el backend?");
+        } else if (error.response.status === 401) {
+          alert("Usuario o contraseña incorrectos.");
+        } else {
+          const data = error.response.data as Record<string, unknown> | undefined;
+          const detalle = data?.detail ?? (data ? JSON.stringify(data) : null);
+          alert(detalle ?? `Error ${error.response.status}`);
+        }
+      } else if (error instanceof Error) {
         alert(error.message);
       } else {
         alert("Ha ocurrido un error desconocido");

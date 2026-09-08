@@ -51,7 +51,7 @@ const MovimientosCaja = () => {
     api
       .get("/movimiento_caja/")
       .then((res) => setMovimientos(res.data))
-      .catch((err) => alert(err))
+      .catch((err) => alert(err?.response?.data ? JSON.stringify(err.response.data) : err.message))
       .finally(() => setLoading(false));
   };
 
@@ -63,7 +63,7 @@ const MovimientosCaja = () => {
         getMovimientos();
         handleCloseModal();
       })
-      .catch((err) => alert(JSON.stringify(err.response.data)));
+      .catch((err) => alert(JSON.stringify(err?.response?.data ?? err.message)));
   };
 
   const updateMovimiento = () => {
@@ -76,7 +76,7 @@ const MovimientosCaja = () => {
         getMovimientos();
         handleCloseModal();
       })
-      .catch((err) => alert(JSON.stringify(err.response.data)));
+      .catch((err) => alert(JSON.stringify(err?.response?.data ?? err.message)));
   };
 
   const deleteMovimiento = (mov: MovimientoCaja) => {
@@ -85,7 +85,7 @@ const MovimientosCaja = () => {
     api
       .delete(`/movimiento_caja/${mov.id}/`)
       .then(() => getMovimientos())
-      .catch((err) => alert(err));
+      .catch((err) => alert(err?.response?.data ? JSON.stringify(err.response.data) : err.message));
   };
 
   // Handlers

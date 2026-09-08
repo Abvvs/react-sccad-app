@@ -11,7 +11,7 @@ export const crearTrabajo = (data: any) => api.post("/trabajos/", data);
 export const actualizarTrabajo = (id: number, data: any) =>
   api.patch(`/trabajos/${id}/`, data);
 export const eliminarTrabajo = (id: number, activo: boolean) =>
-  api.patch(`/trabajos/${id}/inactivar/`, { activo });
+  api.patch(`/trabajos/${id}/inactivar/`, { estado: activo });
 
 // Historial
 export const getHistorial = (id: number) =>

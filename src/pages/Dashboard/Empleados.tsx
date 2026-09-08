@@ -20,26 +20,30 @@ export interface Empleado {
   estado: boolean;
 }
 
+const INITIAL_FORM_DATA = {
+  nombre: "",
+  cedula_ruc: "",
+  telefono: "",
+  banco: "",
+  cuenta_bancaria: "",
+};
+
 const Empleados = () => {
   const [empleados, setEmpleados] = useState<Empleado[]>([]);
   const [loading, setLoading] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [editingEmpleado, setEditingEmpleado] = useState<Empleado | null>(null);
-  const [formData, setFormData] = useState<Record<string, any>>({
-    nombre: "",
-    cedula_ruc: "",
-    telefono: "",
-    banco: "",
-    cuenta_bancaria: "",
-  });
+  const [formData, setFormData] =
+    useState<Record<string, any>>(INITIAL_FORM_DATA);
   useEffect(() => {
     getEmpleados();
   }, []);
   const getEmpleados = () => {
+    setLoading(true);
     api
       .get("/empleados/")
       .then((res) => setEmpleados(res.data))
-      .catch((err) => alert(err))
+      .catch((err) => alert(err?.response?.data ? JSON.stringify(err.response.data) : err.message))
       .finally(() => setLoading(false));
   };
   const createEmpleado = () => {
@@ -48,15 +52,9 @@ const Empleados = () => {
       .then(() => {
         alert("Empleado registrado ✅");
         getEmpleados();
-        setFormData({
-          nombre: "",
-          cedula_ruc: "",
-          telefono: "",
-          banco: "",
-          cuenta_bancaria: "",
-        });
+        handleCloseModal();
       })
-      .catch((err) => alert(JSON.stringify(err.response.data)));
+      .catch((err) => alert(JSON.stringify(err?.response?.data ?? err.message)));
   };
   const toggleEstadoEmpleado = (empleado: Empleado) => {
     api
@@ -64,7 +62,7 @@ const Empleados = () => {
         estado: !empleado.estado,
       })
       .then(() => getEmpleados())
-      .catch((err) => alert(err));
+      .catch((err) => alert(err?.response?.data ? JSON.stringify(err.response.data) : err.message));
   };
   const updateEmpleado = () => {
     if (!editingEmpleado) return;
@@ -74,10 +72,20 @@ const Empleados = () => {
       .then(() => {
         alert("Empleado actualizado ✅");
         getEmpleados();
-        setEditingEmpleado(null);
-        setShowModal(false);
+        handleCloseModal();
       })
-      .catch((err) => alert(JSON.stringify(err.response.data)));
+      .catch((err) => alert(JSON.stringify(err?.response?.data ?? err.message)));
+  };
+  // HANDLERS
+  const handleOpenCreateModal = () => {
+    setEditingEmpleado(null);
+    setFormData(INITIAL_FORM_DATA);
+    setShowModal(true);
+  };
+  const handleCloseModal = () => {
+    setShowModal(false);
+    setEditingEmpleado(null);
+    setFormData(INITIAL_FORM_DATA);
   };
   // Campos del formulario
   const formFields: FormField[] = [
@@ -124,7 +132,7 @@ const Empleados = () => {
     <div style={{ padding: "20px" }}>
       <div className="flex justify-end mb-4">
         <button
-          onClick={() => setShowModal(true)}
+          onClick={handleOpenCreateModal}
           className="bg-[#6b7c5d] hover:bg-[#4a5a3d] text-white px-4 py-2 rounded-lg font-medium transition"
         >
           + Registrar Empleado
@@ -133,8 +141,8 @@ const Empleados = () => {
       {/* Modal */}
       <Modal
         open={showModal}
-        onClose={() => setShowModal(false)}
-        title="Registrar Empleado"
+        onClose={handleCloseModal}
+        title={editingEmpleado ? "Editar Empleado" : "Registrar Empleado"}
       >
         <DynamicForm
           title=""
@@ -149,7 +157,6 @@ const Empleados = () => {
             } else {
               createEmpleado();
             }
-            setShowModal(false);
           }}
           submitText={editingEmpleado ? "Guardar Cambios" : "Registrar Empleado"}
         />

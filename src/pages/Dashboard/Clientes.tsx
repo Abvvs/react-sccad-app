@@ -58,10 +58,11 @@ const Clientes = () => {
       .catch((err) => console.log(err));
   };
   const getClientes = () => {
+    setLoading(true);
     api
       .get("/clientes/")
       .then((res) => setClientes(res.data))
-      .catch((err) => alert(err))
+      .catch((err) => alert(err?.response?.data ? JSON.stringify(err.response.data) : err.message))
       .finally(() => setLoading(false));
   };
   const createCliente = () => {
@@ -72,7 +73,7 @@ const Clientes = () => {
         getClientes();
         handleCloseModal();
       })
-      .catch((err) => alert(JSON.stringify(err.response.data)));
+      .catch((err) => alert(JSON.stringify(err?.response?.data ?? err.message)));
   };
   const toggleEstadoCliente = (cliente: Clientes) => {
     api
@@ -80,7 +81,7 @@ const Clientes = () => {
         estado: !cliente.estado,
       })
       .then(() => getClientes())
-      .catch((err) => alert(err));
+      .catch((err) => alert(err?.response?.data ? JSON.stringify(err.response.data) : err.message));
   };
   const updateCliente = () => {
     if (!editingCliente) return;
@@ -92,7 +93,7 @@ const Clientes = () => {
         getClientes();
         handleCloseModal();
       })
-      .catch((err) => alert(JSON.stringify(err.response.data)));
+      .catch((err) => alert(JSON.stringify(err?.response?.data ?? err.message)));
   };
   //HANDLERS
   const handleViewInfo = (cliente: Clientes) => {

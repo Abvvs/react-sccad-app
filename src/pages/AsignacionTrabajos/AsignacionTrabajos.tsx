@@ -14,6 +14,7 @@ export interface Asignacion {
   id: number;
   trabajo: number;
   trabajo_codigo?: string;
+  trabajo_descripcion?: string;
   empleado: number;
   empleado_nombre?: string;
   rol: number;
@@ -204,7 +205,7 @@ const AsignacionTrabajos = () => {
     { key: "empleado_nombre", label: "Empleado" },
     { key: "rol_nombre", label: "Rol" },
     { key: "trabajo_codigo", label: "Trabajo" },
-    { key: "trabajo_tipo_trabajo", label: "Descripción"}
+    { key: "trabajo_descripcion", label: "Descripción" },
   ];
 
   const actions: TableAction<Asignacion>[] = [
@@ -235,6 +236,10 @@ const AsignacionTrabajos = () => {
           + Asignar Empleado
         </button>
       </div>
+
+      {loading && (
+        <p className="text-center text-[#6b7c5d] py-3">Cargando...</p>
+      )}
 
       <DynamicTable
         title="Asignación de Empleados a Trabajos"
